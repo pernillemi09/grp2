@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <!-- Karakter-sæt og viewport for responsivt design -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Optimering -->
+    <title>Our Place - Hyggelig Brætspilscafé i Aarhus</title>
+    <meta name="description" content="Our Place er en hyggelig brætspilscafé i hjertet af Aarhus. Udforsk vores store udvalg af brætspil, nyd en kop kaffe og deltag i vores events.">
+
+    <!-- Link til stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- === HOVEDINDHOLD === -->
+    <main class="view-container">
+        
+        <!-- --- Standard Tema --- -->
+        <div id="theme-default" class="theme-group">
+            <img src="Images/Forside_uden_tema.png" alt="Forsiden til Our Place brætspilscafé." class="base-img">
+        </div>
+
+        <!-- --- Banner til Events --- -->
+        <!-- Placeret uden for tema-grupperne, så det altid er synligt -->
+        <a href="https://op.nator.dk" class="banner-link" aria-label="Se mere om vores Halloween event">
+            <img src="Images/Banner.png" alt="Banner, der reklamerer for et Halloween event hos Our Place." class="banner-img">
+        </a>
+
+        <!-- --- Halloween Tema --- -->
+        <div id="theme-halloween" class="theme-group" aria-hidden="true">
+            <img src="Images/Forside_med_tema.png" alt="Forsiden til Our Place med et uhyggeligt Halloween tema." class="base-img">
+        </div>
+
+        <!-- --- Tema-skifter Knap --- -->
+        <!-- Konverteret fra <div> til <button> for bedre tilgængelighed (WCAG) -->
+        <button id="theme-toggle" class="toggle-container" aria-label="Skift tema" aria-pressed="false">
+            
+            <!-- Dekorative billeder skjult for skærmlæsere (WCAG) -->
+            <img src="Images/Untoggled_background.png" class="toggle-bg bg-off" alt="" aria-hidden="true">
+            <img src="Images/Toggled_background.png" class="toggle-bg bg-on" alt="" aria-hidden="true">
+
+            <div class="toggle-knob" aria-hidden="true">
+                <img src="Images/Untoggled_circle.png" class="knob-icon icon-off" alt="">
+                <img src="Images/Toggled_circle.png" class="knob-icon icon-on" alt="">
+            </div>
+            
+        </button>
+
+    </main>
+
+    <!-- === JAVASCRIPT === -->
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const halloweenTheme = document.getElementById('theme-halloween');
+        
+        // Håndterer klik og touch for at skifte tema
+        toggleBtn.addEventListener('click', function() {
+            const isPressed = this.getAttribute('aria-pressed') === 'true';
+            
+            // Opdater body class for at skifte CSS-styles
+            document.body.classList.toggle('halloween-mode');
+            
+            // Opdater ARIA-attributter for tilgængelighed (WCAG)
+            this.setAttribute('aria-pressed', !isPressed);
+            halloweenTheme.setAttribute('aria-hidden', isPressed);
+        });
+    </script>
+</body>
+</html>
