@@ -1,71 +1,106 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-    <!-- Karakter-sæt og viewport for responsivt design -->
+    <!-- Metatags til tegnsæt og responsivt layout -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO Optimering -->
+    <!-- SEO: titel og beskrivelse -->
     <title>Our Place - Hyggelig brætspilscafé i Roskilde</title>
     <meta name="description" content="Our Place er en hyggelig brætspilscafé i hjertet af Roskilde. Udforsk vores
     store udvalg af brætspil, nyd en kop kaffe og deltag i vores events.">
 
-    <!-- Link til stylesheet -->
+    <!-- Eksternt stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!--  Hovedindhold -->
-    <main class="view-container">
-        
-        <!-- --- Standard Tema --- -->
-        <div id="theme-default" class="theme-group">
-            <img src="Images/Forside_uden_tema.png" alt="Forsiden til Our Place brætspilscafé." class="base-img">
-        </div>
+<!-- Hovedcontainer for visningen -->
+<main class="view-container">
 
-        <!-- --- Banner til Events --- -->
-        <!-- Placeret uden for tema-grupperne, så det altid er synligt -->
-        <a href="https://op.nator.dk" class="banner-link" aria-label="Besgø vores halloween event site">
-            <img src="Images/Banner.png" alt="Banner, der reklamerer for et halloween event hos Our Place." class="banner-img">
+    <!-- Standard tema (uden Halloween) -->
+    <div id="theme-default" class="theme-group">
+        <img
+                src="Images/Forside_uden_tema.png"
+                alt="Forsiden til Our Place brætspilscafé."
+                class="base-img">
+    </div>
+
+    <!-- Banner og tema-toggle samlet i wrapper -->
+    <div class="banner-wrapper">
+
+        <!-- Klikbart banner til Halloween-kampagnesiden -->
+        <a
+                href="https://op.nator.dk"
+                class="banner-link"
+                aria-label="Besøg vores Halloween event site">
+            <img
+                    src="Images/Banner.png"
+                    alt="Banner, der reklamerer for et Halloween event hos Our Place."
+                    class="banner-img">
         </a>
 
-        <!-- --- Halloween Tema --- -->
-        <div id="theme-halloween" class="theme-group" aria-hidden="true">
-            <img src="Images/Forside_med_tema.png" alt="Forsiden til Our Place med et uhyggeligt Halloween tema." class="base-img">
-        </div>
+        <!-- Tema-skifter knap (WCAG) -->
+        <button
+                id="theme-toggle"
+                class="toggle-container"
+                aria-label="Skift tema"
+                aria-pressed="false">
 
-        <!-- --- Tema-skifter Knap --- -->
-        <button id="theme-toggle" class="toggle-container" aria-label="Skift tema" aria-pressed="false">
-            
-            <!-- Dekorative billeder skjult for skærmlæsere (WCAG) -->
-            <img src="Images/Untoggled_background.png" class="toggle-bg bg-off" alt="" aria-hidden="true">
-            <img src="Images/Toggled_background.png" class="toggle-bg bg-on" alt="" aria-hidden="true">
+            <!-- Baggrunde til knappen (tænd/sluk), skjult for skærmlæsere -->
+            <img
+                    src="Images/Untoggled_background.png"
+                    class="toggle-bg bg-off"
+                    alt=""
+                    aria-hidden="true">
+            <img
+                    src="Images/Toggled_background.png"
+                    class="toggle-bg bg-on"
+                    alt=""
+                    aria-hidden="true">
 
+            <!-- Cirklen, der glider fra venstre mod højre -->
             <span class="toggle-knob" aria-hidden="true">
-                <img src="Images/Untoggled_circle.png" class="knob-icon icon-off" alt="">
-                <img src="Images/Toggled_circle.png" class="knob-icon icon-on" alt="">
+                <img
+                        src="Images/Untoggled_circle.png"
+                        class="knob-icon icon-off"
+                        alt="">
+                <img
+                        src="Images/Toggled_circle.png"
+                        class="knob-icon icon-on"
+                        alt="">
             </span>
-            
+
         </button>
+    </div>
 
-    </main>
+    <!-- Halloween tema (vises når body har .halloween-mode) -->
+    <div id="theme-halloween" class="theme-group" aria-hidden="true">
+        <img
+                src="Images/Forside_med_tema.png"
+                alt="Forsiden til Our Place med et uhyggeligt Halloween tema."
+                class="base-img">
+    </div>
 
-    <!-- JavaScript -->
-    <script>
-        const toggleBtn = document.getElementById('theme-toggle');
-        const halloweenTheme = document.getElementById('theme-halloween');
-        
-        // Håndterer klik og touch for at skifte tema
-        toggleBtn.addEventListener('click', function() {
-            const isPressed = this.getAttribute('aria-pressed') === 'true';
-            
-            // Opdater body class for at skifte CSS-styles
-            document.body.classList.toggle('halloween-mode');
-            
-            // Opdater ARIA-attributter for tilgængelighed (WCAG)
-            this.setAttribute('aria-pressed', !isPressed);
-            halloweenTheme.setAttribute('aria-hidden', isPressed);
-        });
-    </script>
+</main>
+
+<!-- JavaScript til temas skift -->
+<script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const halloweenTheme = document.getElementById('theme-halloween');
+
+    // Håndter klik på knappen og skift mellem standard og Halloween tema
+    toggleBtn.addEventListener('click', function () {
+        const isPressed = this.getAttribute('aria-pressed') === 'true';
+
+        // Skift klasse på body, så CSS kan reagere på aktivt tema
+        document.body.classList.toggle('halloween-mode');
+
+        // Opdater ARIA-attributter for bedre tilgængelighed
+        this.setAttribute('aria-pressed', String(!isPressed));
+        halloweenTheme.setAttribute('aria-hidden', String(isPressed));
+    });
+</script>
+
 </body>
 </html>

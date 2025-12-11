@@ -1,162 +1,193 @@
-/* === GRUNDLÆGGENDE STYLES === */
-
-/* --- Nulstilling (Reset) --- */
-/* Fjerner standard margin og padding fra alle elementer for konsistens på tværs af browsere. */
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
+/* Grundlæggende styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* --- Body --- */
-/* Sætter en sort baggrund og forhindrer horisontal scroll. */
-body { 
-    overflow-x: hidden; 
-    background-color: #000; 
-    transition: background 0.3s; 
+/* Body */
+body {
+    overflow-x: hidden;
+    transition: background 0.3s;
 }
 
-/* === HOVED-LAYOUT === */
-
-/* --- Container --- */
-/* Omslutter alt indhold og fungerer som referencepunkt for absolut positionerede elementer. */
+/* Hovedcontainer til visningen */
 .view-container {
     position: relative;
     width: 100%;
 }
 
-/* --- Generelle Billed-styles --- */
-/* Sikrer at alle hovedbilleder og bannere skalerer responsivt med sidens bredde. */
-.base-img, .banner-img {
+/* Generelle billedstyles */
+.base-img,
+.banner-img {
     width: 100%;
     height: auto;
-    display: block; /* Fjerner det lille mellemrum, billeder kan have i bunden. */
+    display: block;
 }
 
-/* === TEMA-STYRING === */
-
-/* --- Tema Grupper --- */
-/* Fælles container for hvert tema. Ligger oven på hinanden med absolut position. */
+/* Tema-grupper (standard og Halloween) */
 .theme-group {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    transition: opacity 0.5s ease; /* Giver en glidende overgang ved temas-skift. */
+    transition: opacity 0.5s ease;
 }
 
-/* --- Standard Tema --- */
-/* #theme-default er synligt fra start og definerer sidens højde, da det er relativt positioneret. */
+/* Standard tema (synligt fra start) */
 #theme-default {
-    position: relative; 
-    z-index: 1; /* Lægger sig under Halloween-temaet og banneret. */
+    position: relative;
+    z-index: 1;
     opacity: 1;
 }
 
-/* --- Halloween Tema --- */
-/* #theme-halloween er skjult fra start og har en højere z-index end standard-temaet. */
+/* Halloween tema (skjult fra start) */
 #theme-halloween {
     opacity: 0;
     z-index: 10;
-    pointer-events: none; /* Gør elementet ikke-klikbart, når det er skjult. */
+    pointer-events: none;
 }
 
-/* === BANNER === */
-
-/* --- Banner Link --- */
-/* Banneret er absolut positioneret for at ligge oven på tema-billederne. */
-.banner-link {
+/* Wrapper omkring banner og toggle */
+.banner-wrapper {
     position: absolute;
-    top: 105px; /* Juster denne værdi (px) for at flytte banneret op/ned. */
+    top: 105px;           /* Juster denne værdi for at flytte banneret op eller ned */
     left: 0;
     width: 100%;
-    z-index: 15; /* Sørger for, at banneret altid er over begge temaer. */
+    z-index: 20;
+}
+
+/* Klikbart bannerlink */
+.banner-link {
+    display: block;
+    width: 100%;
+}
+
+/* Bannerbillede */
+.banner-img {
+    width: 100%;
+    height: auto;
     display: block;
 }
 
-/* === TEMA-SKIFTER KNAP (WCAG) === */
-
-/* --- Knap Container --- */
-/* Positionerer knappen i bunden af skærmen. */
+/* Container til tema-skifter knap */
 .toggle-container {
     position: absolute;
-    z-index: 100; /* Ligger øverst af alt. */
-    
-    /* Positionering fra bunden og højre side. */
-    bottom: 800px; /* Juster denne værdi for at flytte knappen op/ned. */
-    right: 8px;  /* Juster denne værdi for at flytte knappen venstre/højre. */
-    
+    top: 90%;             /* Vertikal centrering i banneret */
+    right: 2%;         /* Afstand fra højre kant, skalerer med skærmbredden */
+    transform: translateY(-50%);
+    z-index: 30;
+
     width: 100px;
     height: 50px;
     cursor: pointer;
 
-    /* Nulstiller standard <button> styles for et brugerdefineret udseende. */
     background-color: transparent;
     border: none;
     padding: 0;
-    text-align: left; /* Nulstiller knappens interne centrering. */
+    text-align: left;
 }
 
-/* --- Knap Baggrundsbilleder --- */
+/* Baggrunde i tema-skifter knappen */
 .toggle-bg {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: opacity 0.3s;
 }
 
-.bg-on { opacity: 0; } /* "Tændt" baggrund er skjult som standard. */
-.bg-off { opacity: 1; }
+/* Slukket baggrund */
+.bg-off {
+    opacity: 1;
+}
 
-/* --- Knap Cirkel (Slider) --- */
+/* Tændt baggrund */
+.bg-on {
+    opacity: 0;
+}
+
+/* Cirklen, der glider hen over knappen */
 .toggle-knob {
     position: absolute;
     top: 50%;
-    left: 10px; /* Startposition i venstre side. Juster denne værdi. */
+    left: 10px;
     transform: translateY(-50%);
     width: 42px;
     height: 42px;
-    transition: left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* Glidende animation ved skift. */
+    transition: left 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-/* --- Ikoner i Cirklen --- */
+/* Ikoner inde i cirklen */
 .knob-icon {
+    position: absolute;
     width: 100%;
     height: 100%;
-    position: absolute;
     transition: opacity 0.3s;
 }
 
-.icon-on { opacity: 0; } /* "Tændt" ikon er skjult som standard. */
-.icon-off { opacity: 1; }
+/* Slukket ikon (synligt fra start) */
+.icon-off {
+    opacity: 1;
+}
 
-/* === AKTIVT TEMA: HALLOWEEN === */
-/* Disse styles aktiveres, når <body> har klassen .halloween-mode. */
+/* Tændt ikon (skjult fra start) */
+.icon-on {
+    opacity: 0;
+}
 
-/* --- Skjul Standard Tema --- */
+/* Halloween mode: skjul standard tema */
 body.halloween-mode #theme-default {
     opacity: 0;
     pointer-events: none;
 }
 
-/* --- Vis Halloween Tema --- */
+/* Halloween mode: vis Halloween tema */
 body.halloween-mode #theme-halloween {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* --- Opdater Knap-udseende --- */
-body.halloween-mode .bg-on { opacity: 1; }
-body.halloween-mode .bg-off { opacity: 0; }
-
-/* --- Flyt Knap Cirkel --- */
-body.halloween-mode .toggle-knob {
-    left: calc(100% - 51px); /* Juster tallet for at finjustere højre-positionen. */
+/* Halloween mode: skift baggrund i knap */
+body.halloween-mode .bg-on {
+    opacity: 1;
 }
 
-/* --- Skift Ikon --- */
-body.halloween-mode .icon-on { opacity: 1; }
-body.halloween-mode .icon-off { opacity: 0; }
+body.halloween-mode .bg-off {
+    opacity: 0;
+}
+
+/* Halloween mode: flyt cirkel mod højre */
+body.halloween-mode .toggle-knob {
+    left: calc(100% - 52px);
+}
+
+/* Halloween mode: skift ikon i cirkel */
+body.halloween-mode .icon-on {
+    opacity: 1;
+}
+
+body.halloween-mode .icon-off {
+    opacity: 0;
+}
+
+/* Responsiv justering på mindre skærme */
+@media (max-width: 768px) {
+    /* Mindre toggle på mobil */
+    .toggle-container {
+        width: 85px;
+        height: 42px;
+        right: 4vw;
+    }
+
+    .toggle-knob {
+        width: 36px;
+        height: 36px;
+        left: 8px;
+    }
+
+    body.halloween-mode .toggle-knob {
+        left: calc(100% - 44px);
+    }
+}
