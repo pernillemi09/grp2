@@ -7,8 +7,7 @@
 
     <!-- SEO: titel og beskrivelse -->
     <title>Our Place - Hyggelig brætspilscafé i Roskilde</title>
-    <meta name="description" content="Our Place er en hyggelig brætspilscafé i hjertet af Roskilde. Udforsk vores
-    store udvalg af brætspil, nyd en kop kaffe og deltag i vores events.">
+    <meta name="description" content="Our Place er en hyggelig brætspilscafé i hjertet af Roskilde. Udforsk vores store udvalg af brætspil, nyd en kop kaffe og deltag i vores events.">
 
     <!-- Eksternt stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -18,7 +17,7 @@
 <!-- Hovedcontainer for visningen -->
 <main class="view-container">
 
-    <!-- Standard tema (uden Halloween) -->
+    <!-- Standard tema uden halloween -->
     <div id="theme-default" class="theme-group">
         <img
                 src="Images/Forside_uden_tema.png"
@@ -29,18 +28,18 @@
     <!-- Banner og tema-toggle samlet i wrapper -->
     <div class="banner-wrapper">
 
-        <!-- Klikbart banner til Halloween-kampagnesiden -->
+        <!-- Klikbart banner til halloween-kampagnesiden -->
         <a
                 href="https://op.nator.dk"
                 class="banner-link"
-                aria-label="Besøg vores Halloween event site">
+                aria-label="Besøg vores halloween eventsite">
             <img
                     src="Images/Banner.png"
-                    alt="Banner, der reklamerer for et Halloween event hos Our Place."
+                    alt="Banner, der reklamerer for et halloween event hos Our Place."
                     class="banner-img">
         </a>
 
-        <!-- Tema-skifter knap (WCAG) -->
+        <!-- Tema-skifter knap (wcag-venlig) -->
         <button
                 id="theme-toggle"
                 class="toggle-container"
@@ -70,33 +69,32 @@
                         class="knob-icon icon-on"
                         alt="">
             </span>
-
         </button>
     </div>
 
     <!-- Halloween tema (vises når body har .halloween-mode) -->
     <div id="theme-halloween" class="theme-group" aria-hidden="true">
         <img
-                src="Images/Forside_med_tema.png"
-                alt="Forsiden til Our Place med et uhyggeligt Halloween tema."
+                src="Images/Forside_med_tema.webp"
+                alt="Forsiden til Our Place med et uhyggeligt halloween tema."
                 class="base-img">
     </div>
 
 </main>
 
-<!-- JavaScript til temas skift -->
+<!-- Javascript til temas skift -->
 <script>
     const toggleBtn = document.getElementById('theme-toggle');
     const halloweenTheme = document.getElementById('theme-halloween');
 
-    // Håndter klik på knappen og skift mellem standard og Halloween tema
+    // Håndter klik på knappen og skift mellem standard og halloween tema
     toggleBtn.addEventListener('click', function () {
         const isPressed = this.getAttribute('aria-pressed') === 'true';
 
-        // Skift klasse på body, så CSS kan reagere på aktivt tema
+        // Skift klasse på body, så css kan reagere på aktivt tema
         document.body.classList.toggle('halloween-mode');
 
-        // Opdater ARIA-attributter for bedre tilgængelighed
+        // Opdater aria-attributter for bedre tilgængelighed
         this.setAttribute('aria-pressed', String(!isPressed));
         halloweenTheme.setAttribute('aria-hidden', String(isPressed));
     });

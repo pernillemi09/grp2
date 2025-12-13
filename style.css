@@ -1,23 +1,39 @@
-/* Grundlæggende styles */
+/* Grundlæggende nulstilling */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Body */
+/* Sidebaggrund og generel opsætning */
 body {
     overflow-x: hidden;
+    background-color: #7f7298;   /* Standard: lilla baggrund */
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
     transition: background 0.3s;
 }
 
-/* Hovedcontainer til visningen */
+/* Sidebaggrund i halloween-tema */
+body.halloween-mode {
+    background-color: #FD9208;   /* Fallback-farve i halloween-tema */
+
+    /* Til evt. halloween-baggrund med flagermus:
+    background-image: url("Images/halloween_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    */
+}
+
+/* Container for temavisning */
 .view-container {
     position: relative;
     width: 100%;
 }
 
-/* Generelle billedstyles */
+/* Fælles billedstil til forside og banner */
 .base-img,
 .banner-img {
     width: 100%;
@@ -25,7 +41,7 @@ body {
     display: block;
 }
 
-/* Tema-grupper (standard og Halloween) */
+/* Fælles opsætning for tema-billeder */
 .theme-group {
     position: absolute;
     top: 0;
@@ -34,30 +50,30 @@ body {
     transition: opacity 0.5s ease;
 }
 
-/* Standard tema (synligt fra start) */
+/* Standardtema (vises som udgangspunkt) */
 #theme-default {
     position: relative;
     z-index: 1;
     opacity: 1;
 }
 
-/* Halloween tema (skjult fra start) */
+/* Halloweentema (skjult som udgangspunkt) */
 #theme-halloween {
     opacity: 0;
     z-index: 10;
     pointer-events: none;
 }
 
-/* Wrapper omkring banner og toggle */
+/* Wrapper til banner og tema-toggle (desktop-placering) */
 .banner-wrapper {
     position: absolute;
-    top: 105px;           /* Juster denne værdi for at flytte banneret op eller ned */
+    top: 105px;      /* Afstand til top i desktop-visning */
     left: 0;
     width: 100%;
     z-index: 20;
 }
 
-/* Klikbart bannerlink */
+/* Klikbart banner-link */
 .banner-link {
     display: block;
     width: 100%;
@@ -70,15 +86,15 @@ body {
     display: block;
 }
 
-/* Container til tema-skifter knap */
+/* Container til tema-toggle (placering inde i banner) */
 .toggle-container {
     position: absolute;
-    top: 90%;             /* Vertikal centrering i banneret */
-    right: 2%;         /* Afstand fra højre kant, skalerer med skærmbredden */
+    top: 90%;
+    right: 2%;
     transform: translateY(-50%);
     z-index: 30;
 
-    width: 100px;
+    width: 100px;      /* Størrelse i desktop-visning */
     height: 50px;
     cursor: pointer;
 
@@ -88,7 +104,7 @@ body {
     text-align: left;
 }
 
-/* Baggrunde i tema-skifter knappen */
+/* Baggrunde i tema-toggle */
 .toggle-bg {
     position: absolute;
     inset: 0;
@@ -98,17 +114,17 @@ body {
     transition: opacity 0.3s;
 }
 
-/* Slukket baggrund */
+/* Baggrund i standardtilstand */
 .bg-off {
     opacity: 1;
 }
 
-/* Tændt baggrund */
+/* Baggrund i halloween-tilstand */
 .bg-on {
     opacity: 0;
 }
 
-/* Cirklen, der glider hen over knappen */
+/* Cirklen, der bevæger sig i toggle */
 .toggle-knob {
     position: absolute;
     top: 50%;
@@ -127,29 +143,28 @@ body {
     transition: opacity 0.3s;
 }
 
-/* Slukket ikon (synligt fra start) */
+/* Ikon i standardtilstand */
 .icon-off {
     opacity: 1;
 }
 
-/* Tændt ikon (skjult fra start) */
+/* Ikon i halloween-tilstand */
 .icon-on {
     opacity: 0;
 }
 
-/* Halloween mode: skjul standard tema */
+/* Skift mellem tema-billeder i halloween-tilstand */
 body.halloween-mode #theme-default {
     opacity: 0;
     pointer-events: none;
 }
 
-/* Halloween mode: vis Halloween tema */
 body.halloween-mode #theme-halloween {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* Halloween mode: skift baggrund i knap */
+/* Skift baggrunde i toggle i halloween-tilstand */
 body.halloween-mode .bg-on {
     opacity: 1;
 }
@@ -158,12 +173,12 @@ body.halloween-mode .bg-off {
     opacity: 0;
 }
 
-/* Halloween mode: flyt cirkel mod højre */
+/* Flyt cirkel i toggle i halloween-tilstand (desktop) */
 body.halloween-mode .toggle-knob {
     left: calc(100% - 52px);
 }
 
-/* Halloween mode: skift ikon i cirkel */
+/* Skift ikon i cirkel i halloween-tilstand */
 body.halloween-mode .icon-on {
     opacity: 1;
 }
@@ -172,22 +187,52 @@ body.halloween-mode .icon-off {
     opacity: 0;
 }
 
-/* Responsiv justering på mindre skærme */
-@media (max-width: 768px) {
-    /* Mindre toggle på mobil */
+/* Tablet-layout (max 1024 px bredde) */
+@media (max-width: 1024px) {
+
+    /* Justering af bannerafstand på tablet */
+    .banner-wrapper {
+        top: 80px;
+    }
+
+    /* Mindre toggle på tablet */
     .toggle-container {
-        width: 85px;
-        height: 42px;
-        right: 4vw;
+        width: 72px;
+        height: 36px;
     }
 
     .toggle-knob {
-        width: 36px;
-        height: 36px;
+        width: 30px;
+        height: 30px;
         left: 8px;
     }
 
     body.halloween-mode .toggle-knob {
-        left: calc(100% - 44px);
+        left: calc(100% - 40px);
+    }
+}
+
+/* Mobil-layout (max 768 px bredde) */
+@media (max-width: 768px) {
+
+    /* Justering af bannerafstand på mobil */
+    .banner-wrapper {
+        top: 64px;
+    }
+
+    /* Mindste toggle på mobil */
+    .toggle-container {
+        width: 56px;
+        height: 30px;
+    }
+
+    .toggle-knob {
+        width: 26px;
+        height: 26px;
+        left: 6px;
+    }
+
+    body.halloween-mode .toggle-knob {
+        left: calc(100% - 34px);
     }
 }
